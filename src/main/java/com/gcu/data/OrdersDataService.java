@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.gcu.business.OrdersBusinessService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gcu.model.OrderModel;
@@ -20,7 +23,10 @@ public class OrdersDataService<T> implements DataAccessInterface<OrderModel> {
 	private DataSource dataSource;
 	@Autowired
 	private JdbcTemplate jdbcTemplateObject;
-	
+
+	Logger logger = LogManager.getLogger(OrdersBusinessService.class);
+
+
 	public OrdersDataService(DataSource dataSource) {
 		this.dataSource = dataSource;
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
@@ -42,7 +48,7 @@ public class OrdersDataService<T> implements DataAccessInterface<OrderModel> {
 		
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			logger.error("ERROR occurred when selecting orders", e);
 		}
 		return orders;
 	}
@@ -61,7 +67,7 @@ public class OrdersDataService<T> implements DataAccessInterface<OrderModel> {
 			int rows = jdbcTemplateObject.update(sql, order.getOrderNo(),order.getProductName(),order.getPrice(),order.getQuantity());
 			return rows == 1 ? true : false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("ERROR occurred when inserting into orders", e);
 		}
 		return false;
 	}

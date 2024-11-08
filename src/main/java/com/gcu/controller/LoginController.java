@@ -1,5 +1,8 @@
 package com.gcu.controller;
 
+import com.gcu.business.OrdersBusinessService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,9 @@ public class LoginController {
 	@Autowired
 	private SecurityBusinessService security;
 
+	Logger logger = LogManager.getLogger(LoginController.class);
+
+
 	@GetMapping("/login")
 	public ModelAndView display(Model model) {
 		ModelAndView mv = new ModelAndView();
@@ -41,17 +47,19 @@ public class LoginController {
 		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("title", "Login Form");
+			logger.error("ERROR occurred when trying to login", bindingResult.getAllErrors());
 			return "login";
 		}
 		
 		security.authenticate(loginModel.getUsername(), loginModel.getPassword());
-		
+
+		logger.info("Attempting to collect orders from database");
 		model.addAttribute("title", "My Orders");
 		model.addAttribute("orders", service.getOrders());
 		
 		
 		
-		//navigate back to login view
+		//navigate back to log in view
 		return "orders";
 
 	}
