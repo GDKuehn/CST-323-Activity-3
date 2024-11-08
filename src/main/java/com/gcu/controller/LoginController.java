@@ -54,6 +54,12 @@ public class LoginController {
 		security.authenticate(loginModel.getUsername(), loginModel.getPassword());
 
 		logger.info("Attempting to collect orders from database");
+		logger.info("Testing LOGGING functionality");
+		logger.error("Testing LOGGING functionality");
+		logger.warn("Testing LOGGING functionality");
+		logger.debug("Testing LOGGING functionality");
+		logger.fatal("Testing LOGGING functionality");
+
 		model.addAttribute("title", "My Orders");
 		model.addAttribute("orders", service.getOrders());
 		
