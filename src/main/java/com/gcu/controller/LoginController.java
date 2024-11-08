@@ -30,7 +30,7 @@ public class LoginController {
 	Logger logger = LogManager.getLogger(LoginController.class);
 
 
-	@GetMapping("/login")
+	@GetMapping("/")
 	public ModelAndView display(Model model) {
 		ModelAndView mv = new ModelAndView();
 
