@@ -62,9 +62,7 @@ public class LoginController {
 
 		model.addAttribute("title", "My Orders");
 		model.addAttribute("orders", service.getOrders());
-		
-		
-		
+
 		//navigate back to log in view
 		return "orders";
 
