@@ -28,7 +28,7 @@ public class SpringConfig {
 	//@Scope(value="prototype", proxyMode=ScopedProxyMode.TARGET_CLASS)
 	public OrdersBusinessServiceInterface getOrdersBusiness() {
 		
-		return new OrdersBusinessService();
+		return new AnotherOrdersBusinessService();
 	}
 
 }
